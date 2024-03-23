@@ -20,7 +20,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - run: cargo update
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
