@@ -1,0 +1,71 @@
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: 0 * * * *
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - edited
+      - labeled
+      - unlabeled
+      - ready_for_review
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: cargo update
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.ACTIONS_BOT_TOKEN }}
+          commit-message: 'Bump Cargo Dependencies'
+          committer: dependabot-preview[bot] <27856297+dependabot-preview[bot]@users.noreply.github.com>
+          author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          delete-branch: true
+          title: 'chore(deps): Bump Cargo Dependencies'
+          branch: dependabot/cargo
+          body: |
+            Reruns `cargo run` again on this repo
+
+            [![Dependabot compatibility score](https://camo.githubusercontent.com/39e29dc410d6d09459da939b263bc01b2619e290284c3f95434d8db526bc922a/68747470733a2f2f646570656e6461626f742d6261646765732e6769746875626170702e636f6d2f6261646765732f636f6d7061746962696c6974795f73636f72653f646570656e64656e63792d6e616d653d6a736f6e5f736368656d6572267061636b6167652d6d616e616765723d62756e646c65722670726576696f75732d76657273696f6e3d322e312e31266e65772d76657273696f6e3d322e322e31)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+            Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+            
+            ----
+
+            <details><summary>Dependabot commands and options</summary>
+            <p>
+
+            - `@dependabot rebase` will rebase this PR
+            - `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+            - `@dependabot merge` will merge this PR after your CI passes on it
+            - `@dependabot squash` and merge will squash and merge this PR after your CI passes on it
+            - `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+            - `@dependabot reopen` will reopen this PR if it is closed
+            - `@dependabot close` will close this PR
+            - `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency
+            - `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)
+            - `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)
+            - `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)
+
+            </p>
+            </details> 
+      - name: Enable auto-merge
+        if: startsWith(github.repository, 'seyedeliasfakoorian/')
+        uses: reitermarkus/automerge@634d0a4b51134c163eee182ac9aa79133eb33e8d
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          merge-method: merge
+          squash-commit-title: ${pull_request.title} (#${pull_request.number})
+          squash-commit-message: '\n'
+          pull-request: ${{ github.event.inputs.pull-request }}
+          pull-request-author-associations: MEMBER,OWNER
