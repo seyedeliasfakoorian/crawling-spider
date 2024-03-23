@@ -28,8 +28,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'Bump Cargo Dependencies'
           committer: dependabot-preview[bot] <27856297+dependabot-preview[bot]@users.noreply.github.com>
-          author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
-          signoff: false
+          author: dependabot-preview[bot] <27856297+dependabot-preview[bot]@users.noreply.github.com>
+          signoff: true
           delete-branch: true
           title: 'chore(deps): Bump Cargo Dependencies'
           branch: dependabot/cargo
