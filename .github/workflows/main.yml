@@ -25,7 +25,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CREATE_PULL_REQUEST_TOKEN }}
           commit-message: 'Bump Cargo Dependencies'
           committer: dependabot-preview[bot] <27856297+dependabot-preview[bot]@users.noreply.github.com>
           author: dependabot-preview[bot] <27856297+dependabot-preview[bot]@users.noreply.github.com>
