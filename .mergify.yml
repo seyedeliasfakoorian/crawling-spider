@@ -1,0 +1,9 @@
+pull_request_rules:
+    - name: Merge all pull requests
+      conditions:
+        - or:
+            - files=cargo.toml
+            - files=cargo.lock
+      actions:
+         merge:
+           method: merge
