@@ -23,7 +23,7 @@ Using GUI, the usage of the **crawling-spider** can be completed by following th
 
    3. Add to path
    ```
-     cargo install --path .
+     cargo build --path .
    ```
 
    **How it Works:**
