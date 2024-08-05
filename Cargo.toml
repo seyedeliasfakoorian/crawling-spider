@@ -10,7 +10,7 @@ authors = ["Elias Fakoorian"]
 [dependencies]
 reqwest = "0.12.5"
 tokio = { version = "1", features = ["full"] }
-scraper = "0.19.1"
+scraper = "0.20.0"
 
 [[bin]]
 name = "master"
